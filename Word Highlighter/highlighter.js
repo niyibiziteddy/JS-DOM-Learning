@@ -1,5 +1,5 @@
 const myParagraph = document.getElementById('myParagraph')
-const myparHTML = myParagraph.innerHTML.split(' ')
+let myparHTML = myParagraph.innerHTML
 const wordArray = myParagraph.textContent.split(' ').filter(item => item !== ' ').filter(item => item !== '');
 const setArray = [... new Set(wordArray)];
 const eachWord = [];
@@ -17,16 +17,20 @@ eachWord.sort((a,b) => {
     return Object.values(b) - Object.values(a);
 })
 const arrayOFFirsts = []
-eachWord.slice(0,5).forEach(item => {
-    return arrayOFFirsts.push(Object.keys(item)) 
+eachWord.slice(0,10).forEach(item => {
+    return arrayOFFirsts.push(Object.keys(item)[0]) 
 });
 
 console.log(arrayOFFirsts)
-// iterate over them
+// iterate over them and change them
 arrayOFFirsts.forEach(item => {
-    myparHTML.map(el => {
-        if(el === item){
-            return `<span>${item}</span>`
-        }
-    })
+    if(item[0] === item[0].toUpperCase()){
+        myparHTML = myparHTML.replaceAll(` ${item} `,` <span class="special" style="text-decoration: underline;">${item}</span> `)
+    }
+    else{
+        myparHTML = myparHTML.replaceAll(` ${item} `,` <span class="special">${item}</span> `)
+    }
+    
 })
+myParagraph.innerHTML = myparHTML;
+console.log(arrayOFFirsts[6][0].toUpperCase())
